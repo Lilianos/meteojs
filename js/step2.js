@@ -4,7 +4,7 @@ let svg  = elt.append("svg")
     .attr("width", "100%")
     .attr("height", "120");
 
-var request = d3.json("data/meteo.json")
+var request = d3.json("data/circles.json")
     .then(drawCircles).catch(console.error);
 
 function drawCircles(d) {
