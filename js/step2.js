@@ -1,4 +1,9 @@
+
+
 var meteo = [];
+
+// Color
+const ColBlueSky = d3.rgb("#87CEEB");
 
 const width = 550, height = 550;
 const path = d3.geoPath();
@@ -40,7 +45,7 @@ const departmentJSON = {"bbox":[-5.1,41.36,9.55,51.08],"type":"FeatureCollection
 		.attr('class', 'department')
 		.attr('id',joinCityDepartment)
 		.attr("d", path)
-		.attr("fill",'blue')
+		.attr("fill",ColBlueSky)
 		.on("mouseover", function(d) {
 			div.transition()
 				.duration(200)
