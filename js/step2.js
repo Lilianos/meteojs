@@ -13,22 +13,6 @@ const projection = d3.geoConicConformal()
     .translate([width / 2, height / 2]);
 path.projection(projection);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const svg = d3.select('#myDiv').append("svg")
     .attr("id", "svg")
     .attr("width", width)
