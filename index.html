@@ -1,76 +1,72 @@
 <html>
-<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		
-		<title>Météo 3d javascript</title>
+  <head>
+  <meta charset="UTF-8">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
 	
-		  
-		<style type="text/css">
-			#svg {
-				display: block;
-				margin: auto;
-			}
-			#graph {
-				display: block;
-				margin: auto;
-			}
-			
-			Carte.tooltip {
-			position: absolute;
-				text-align: center;
-				color: black;
-				width: 275px;
-				height: 40px;
-				padding: 2px;
-				font: 12px sans-serif;
-				background: grey;
-				border: 0px;
-				border-radius: 8px;
-				pointer-events: none;
-			}
-			Chart.tooltip {
-			position: absolute;
-				text-align: center;
-				color: black;
-				width: 200px;
-				height: 15px;
-				padding: 2px;
-				font: 12px sans-serif;
-				background: grey;
-				border: 0px;
-				border-radius: 8px;
-				pointer-events: none;
-				
-			}
-			.line {
-				fill: none;
-				stroke: #1481db;
-				stroke-width: 3;
-			}
-  
-			.overlay {
-				fill: none;
-				pointer-events: all;
-			}
+	var meteo = [];
+	
+	function loadJSON(callback) {   
+  var xobj = new XMLHttpRequest();
+  xobj.overrideMimeType("application/json");
+  xobj.open('GET', 'data/meteo.json', true);
+  xobj.onreadystatechange = function () {
+    if (xobj.readyState == 4 && xobj.status == "200") {
+      callback(JSON.parse(xobj.responseText));
+    }
+  };
+  xobj.send(null);  
+}
 
-			.dot {
-				fill: #1481db;
-				stroke: #fff;
-			}
-  
-			.focus circle {
-				fill: none;
-				stroke: steelblue;
-			}
-		</style>
-	</head>
+		loadJSON(function(meteo) {
+  console.log(meteo);
+	this.meteo = meteo;
+  // this will log out the json object
+});
+
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+	  
+	   	var datab = [['Jour','Température']];
+		var dataa = [['Jour','Humidité']];
+
+function drawChart() {
+		for (var i = 0; i < meteo.length; i++) {
+			datab.push([meteo[i].d, meteo[i].t/100]);
+		}
+		for (var i = 0; i < meteo.length; i++) {
+			dataa.push([meteo[i].d, meteo[i].p]);
+		}
+        var data = google.visualization.arrayToDataTable(datab);
+		var dete = google.visualization.arrayToDataTable(dataa);
+ 
+ 
+ 
+
+ 
+        var options = {
+          title: 'Evolution de la température en France',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+		
+		        var optionz = {
+          title: "Evolution de l'humidité en France",
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+var chartz = new google.visualization.LineChart(document.getElementById('curve_chartz'));
+        chart.draw(data, options);
+		chartz.draw(dete, optionz);
+      }
+	  
+	  
+    </script>
+  </head>
   <body>
-    <div id="myDiv"></div>
-	<div id="mouseover_linechart"></div>
-
- <script src="https://d3js.org/d3.v5.min.js"></script>
-  <script src="js/step2.js"></script>
-   <script src="js/lineChart.js"></script>
+    <div id="curve_chart" style="width: 900px; height: 500px"></div>
+	<div id="curve_chartz" style="width: 900px; height: 500px"></div>
   </body>
 </html>
-
