@@ -1,5 +1,4 @@
 var meteo = [];
-var departement = [];
 
 const width = 550, height = 550;
 const path = d3.geoPath();
@@ -14,13 +13,7 @@ const svg = d3.select('#myDiv').append("svg")
     .attr("height", height);
 
 const deps = svg.append("g");
-d3.json('data/departments.json').then(function(geojson) {
-    deps.selectAll("path")
-        .data(geojson.features)
-        .enter()
-        .append("path")
-        .attr("d", path);
-});
+
 
 d3.json('data/meteo.json').then(function(StationsMeteo) {
 	
@@ -47,6 +40,7 @@ const departmentJSON = {"bbox":[-5.1,41.36,9.55,51.08],"type":"FeatureCollection
 		.attr('class', 'department')
 		.attr('id',joinCityDepartment)
 		.attr("d", path)
+		.attr("fill",'blue')
 		.on("mouseover", function(d) {
 			div.transition()
 				.duration(200)
@@ -75,30 +69,11 @@ const departmentJSON = {"bbox":[-5.1,41.36,9.55,51.08],"type":"FeatureCollection
 
 function joinCityDepartment(d)
 {
-	//console.log(d);
 	return d.properties.CODE_DEPT;
 }
 
 
 function showMaptemp(day)
 {
-	var Departements = document.getElementsByClassName('department');
 	
-	for(var i = 0 ; i < Departements.length;i++)
-	{
-		Departements.item(i).style.fill="yellow";
-		
-	}
-	
-	var elementId = null;
-	for(var i = 0; i<meteo[day].station.length;i++)
-		{
-			elementId = document.getElementById(meteo[0].station[i].CODE_DEPT)
-			
-			if(elementId!=null)
-			{
-				elementId.style.fill='green'
-			}
-			//console.log("document.getElementById("+meteo[0].station[i].CODE_DEPT+").style.fill='green'");
-		}
 }
