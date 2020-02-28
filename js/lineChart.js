@@ -1,7 +1,6 @@
 var margin = {top: 50, right: 50, bottom: 50, left: 50}
   , width = window.innerWidth - margin.left - margin.right // Use the window's width 
   , height = window.innerHeight - margin.top - margin.bottom; // Use the window's height
-		  var linechart = document.getElementById("mouseover_linechart");
 // The number of datapoints
 var n = 21;
 
@@ -24,12 +23,37 @@ var line = d3.line()
 // 8. An array of objects of length N. Each object has key -> value pair, the key being "y" and the value is a random number
 var dataset = d3.range(n).map(function(d) { return {"y": d3.randomUniform(1)() } })
 
+
+
+
+
+
+
+
+
+
+
 // 1. Add the SVG to the page and employ #2
-var svg = d3.select("body").append("svg")
+const svg = d3.select("#mouseover_linechart").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // 3. Call the x axis in a group tag
 svg.append("g")
@@ -57,8 +81,18 @@ svg.selectAll(".dot")
     .attr("cy", function(d) { return yScale(d.y) })
     .attr("r", 5)
 	.on("mouseover", function(d) {
-			linechart.html = "Pluviométrie : ";
+		div.transition()
+				.duration(200)
+				.style("opacity", .9);
+			div.html("Pluviométrie : " + d.y)
+			.style("left", (d3.event.pageX + 30) + "px")
+			.style("top", (d3.event.pageY - 30) + "px")
+			//console.log(d);
 		});
+		
+	var div = d3.select("body").append("Chart")
+		.attr("class", "tooltip")
+		.style("opacity", 0);
 		
       //.on("mouseover", function(d) { 
   		//	console.log("ok"); 

@@ -12,10 +12,36 @@ const projection = d3.geoConicConformal()
     .scale(2600)
     .translate([width / 2, height / 2]);
 path.projection(projection);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const svg = d3.select('#myDiv').append("svg")
     .attr("id", "svg")
     .attr("width", width)
     .attr("height", height);
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 const deps = svg.append("g");
 
