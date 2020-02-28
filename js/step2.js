@@ -34,15 +34,6 @@ const svg = d3.select('#myDiv').append("svg")
     .attr("width", width)
     .attr("height", height);
 	
-	
-	
-	
-	
-	
-	
-	
-	
-
 const deps = svg.append("g");
 
 
@@ -53,10 +44,6 @@ d3.json('data/meteo.json').then(function(StationsMeteo) {
 	
 	//console.log(meteo[0].station[i].CODE_DEPT);
 	loadDepartement();	
-
-		
-	
-	
 });
 
 function loadDepartement(day=0)
@@ -97,12 +84,10 @@ const departmentJSON = {"bbox":[-5.1,41.36,9.55,51.08],"type":"FeatureCollection
 	UpdateDepartment(day);
 }
 
-
 function joinCityDepartment(d)
 {
 	return d.properties.CODE_DEPT;
 }
-
 
 function UpdateDepartment(day)
 {
