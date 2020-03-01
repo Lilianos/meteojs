@@ -1,0 +1,72 @@
+<html>
+  <head>
+  <meta charset="UTF-8">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+	
+	var meteo = [];
+	
+	function loadJSON(callback) {   
+  var xobj = new XMLHttpRequest();
+  xobj.overrideMimeType("application/json");
+  xobj.open('GET', 'data/meteo.json', true);
+  xobj.onreadystatechange = function () {
+    if (xobj.readyState == 4 && xobj.status == "200") {
+      callback(JSON.parse(xobj.responseText));
+    }
+  };
+  xobj.send(null);  
+}
+
+		loadJSON(function(meteo) {
+  console.log(meteo);
+	this.meteo = meteo;
+  // this will log out the json object
+});
+
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+	  
+	   	var datab = [['Jour','Température']];
+		var dataa = [['Jour','Humidité']];
+
+function drawChart() {
+		for (var i = 0; i < meteo.length; i++) {
+			datab.push([meteo[i].d, meteo[i].t/100]);
+		}
+		for (var i = 0; i < meteo.length; i++) {
+			dataa.push([meteo[i].d, meteo[i].p]);
+		}
+        var data = google.visualization.arrayToDataTable(datab);
+		var dete = google.visualization.arrayToDataTable(dataa);
+ 
+ 
+ 
+
+ 
+        var options = {
+          title: 'Evolution de la température en France',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+		
+		        var optionz = {
+          title: "Evolution de l'humidité en France",
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+var chartz = new google.visualization.LineChart(document.getElementById('curve_chartz'));
+        chart.draw(data, options);
+		chartz.draw(dete, optionz);
+      }
+	  
+	  
+    </script>
+  </head>
+  <body>
+    <div id="curve_chart" style="width: 900px; height: 500px"></div>
+	<div id="curve_chartz" style="width: 900px; height: 500px"></div>
+  </body>
+</html>

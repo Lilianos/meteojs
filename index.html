@@ -1,72 +1,97 @@
 <html>
-  <head>
-  <meta charset="UTF-8">
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-	
-	var meteo = [];
-	
-	function loadJSON(callback) {   
-  var xobj = new XMLHttpRequest();
-  xobj.overrideMimeType("application/json");
-  xobj.open('GET', 'data/meteo.json', true);
-  xobj.onreadystatechange = function () {
-    if (xobj.readyState == 4 && xobj.status == "200") {
-      callback(JSON.parse(xobj.responseText));
-    }
-  };
-  xobj.send(null);  
-}
-
-		loadJSON(function(meteo) {
-  console.log(meteo);
-	this.meteo = meteo;
-  // this will log out the json object
-});
-
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-	  
-	   	var datab = [['Jour','Température']];
-		var dataa = [['Jour','Humidité']];
-
-function drawChart() {
-		for (var i = 0; i < meteo.length; i++) {
-			datab.push([meteo[i].d, meteo[i].t/100]);
-		}
-		for (var i = 0; i < meteo.length; i++) {
-			dataa.push([meteo[i].d, meteo[i].p]);
-		}
-        var data = google.visualization.arrayToDataTable(datab);
-		var dete = google.visualization.arrayToDataTable(dataa);
- 
- 
- 
-
- 
-        var options = {
-          title: 'Evolution de la température en France',
-          curveType: 'function',
-          legend: { position: 'bottom' }
-        };
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		
-		        var optionz = {
-          title: "Evolution de l'humidité en France",
-          curveType: 'function',
-          legend: { position: 'bottom' }
-        };
+		<title>Météo 3d javascript</title>
+		
+		<h1 id="title">Météo du %d Fevrier </h1>
+		
+		<style type="text/css">
+			#svg {
+				display: block;
+				margin: auto;
+			}
+			#graph {
+				display: block;
+				margin: auto;
+			}
+			
+			Carte.tooltip {
+			position: absolute;
+				text-align: center;
+				color: black;
+				width: 275px;
+				height: 40px;
+				padding: 2px;
+				font: 12px sans-serif;
+				background: grey;
+				border: 0px;
+				border-radius: 8px;
+				pointer-events: none;
+			}
+			h1
+			{
+			font-size: 32px;
+			text-shadow: -1px -1px 
+			font-family:Arial, Helvetica, sans-serif;
+			padding:16px;
+			font-weight:lighter;
+			-moz-box-shadow: 2px 2px 6px #888;  
+			-webkit-box-shadow: 2px 2px 6px #888;  
+			box-shadow:2px 2px 6px #888;  
+			text-align:center;
+			display:block;
+			margin:16px;
+			
+			}
+			
+			
+			.select-style
+			{
+				border: 1px solid #ccc;
+				width: 120px;
+				border-radius: 3px;
+				overflow: hidden;
+				background: #fafafa url("img/icon-select.png") no-repeat 90% 50%;
+				align:center;
+				text-align: 
+				    margin-left: auto;
+    margin-right: auto;
+			}
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-var chartz = new google.visualization.LineChart(document.getElementById('curve_chartz'));
-        chart.draw(data, options);
-		chartz.draw(dete, optionz);
-      }
-	  
-	  
-    </script>
-  </head>
+			.select-style select {
+				padding: 5px 8px;
+				width: 130%;
+				border: none;
+				box-shadow: none;
+				background: transparent;
+				background-image: none;
+				-webkit-appearance: none;
+				align:center;
+				text-align: center
+			    margin-left: auto;
+				margin-right: auto;
+
+			}
+
+			.select-style select:focus {
+				outline: none;
+				align:center;
+				text-align: center
+				margin-left: auto;
+				margin-right: auto;
+			}
+
+		</style>
+	</head>
   <body>
-    <div id="curve_chart" style="width: 900px; height: 500px"></div>
-	<div id="curve_chartz" style="width: 900px; height: 500px"></div>
+    <div id="carte"></div>
+	
+	<select id="ComboJours">
+	</select>
+
+ <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="js/step2.js"></script>
   </body>
 </html>
+
