@@ -2,7 +2,7 @@
 <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		
-		<title>Météo 3d javascript</title>
+		<title>Météo France</title>
 		
 		<h1 id="title">Météo du %d Fevrier </h1>
 		
@@ -81,14 +81,27 @@
 				margin-left: auto;
 				margin-right: auto;
 			}
+			
 
 		</style>
 	</head>
   <body>
+  
+  <center><div id="menu"> <!-- Définition du menu -->
+		<ul>
+			<li>
+				<a href="index.html">Carte</a> <!-- Bouton accueil -->
+			</li>
+			<li>
+				<a href="index2.html">Prévisions</a> <!-- Bouton redirection Twitch Tv -->
+		</li>
+		</ul>	
+	</div>
+	<br>
+		<center><select id="ComboJours">
+	</select>
     <div id="carte"></div>
 	
-	<select id="ComboJours">
-	</select>
 
  <script src="https://d3js.org/d3.v5.min.js"></script>
   <script src="js/step2.js"></script>

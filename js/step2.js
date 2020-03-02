@@ -83,7 +83,7 @@ function loadComboDays(day=0)
 	for (var i =0; i<meteo.length;i++)
 	{
 		opt = document.createElement('option');
-		opt.appendChild( document.createTextNode((i+1) + ' Fervrier') );
+		opt.appendChild( document.createTextNode((i+1) + ' Fevrier') );
 
 		opt.value = i; 
 
